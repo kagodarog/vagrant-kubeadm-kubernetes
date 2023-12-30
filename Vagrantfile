@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
       done
   SHELL
 
-  if `uname -m`.strip == "aarch64"
+  if `uname -m`.strip == "arm64"
     config.vm.box = settings["software"]["box"] + "-arm64"
   else
     config.vm.box = settings["software"]["box"]
@@ -33,10 +33,10 @@ Vagrant.configure("2") do |config|
         master.vm.synced_folder shared_folder["host_path"], shared_folder["vm_path"]
       end
     end
-    master.vm.provider "virtualbox" do |vb|
+    master.vm.provider "vmware" do |vb|
         vb.cpus = settings["nodes"]["control"]["cpu"]
         vb.memory = settings["nodes"]["control"]["memory"]
-        if settings["cluster_name"] and settings["cluster_name"] != ""
+        if settings["cluster_name"] and settings["cluster_name"] = ""
           vb.customize ["modifyvm", :id, "--groups", ("/" + settings["cluster_name"])]
         end
     end
@@ -68,10 +68,10 @@ Vagrant.configure("2") do |config|
           node.vm.synced_folder shared_folder["host_path"], shared_folder["vm_path"]
         end
       end
-      node.vm.provider "virtualbox" do |vb|
+      node.vm.provider "vmware" do |vb|
           vb.cpus = settings["nodes"]["workers"]["cpu"]
           vb.memory = settings["nodes"]["workers"]["memory"]
-          if settings["cluster_name"] and settings["cluster_name"] != ""
+          if settings["cluster_name"] and settings["cluster_name"] = ""
             vb.customize ["modifyvm", :id, "--groups", ("/" + settings["cluster_name"])]
           end
       end
